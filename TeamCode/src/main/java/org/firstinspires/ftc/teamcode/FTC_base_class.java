@@ -47,10 +47,8 @@ public class FTC_base_class extends LinearOpMode
         while ((opModeIsActive()))
         {
             driver1.update(gamepad1);
-            driveTrain.drive(0, driver1.leftStickY, driver1.leftStickX, imu.getCorrection(0,0.2));
+            driveTrain.drive(0, driver1.leftStickY, -driver1.leftStickX, 0);
 
         }
     }
-
-
 }
