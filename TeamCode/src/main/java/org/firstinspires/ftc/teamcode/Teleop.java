@@ -18,6 +18,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 */
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -29,7 +30,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp
-
+@Disabled
 public class Teleop extends LinearOpMode {
     //state machine enums. DO NOT TOUCH!!!!!
     enum ShootState {
