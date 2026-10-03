@@ -26,7 +26,7 @@ public class Biobuzz_robot extends LinearOpMode {
     DriveTrain driveTrain;
 
     // PIDF constants for flywheel
-    private static final double kP = 6.0;
+    private static final double kP = 5.0;
     private static final double kI = 0.5;
     private static final double kD = 0.0;
     private static final double kF = 12.0;
