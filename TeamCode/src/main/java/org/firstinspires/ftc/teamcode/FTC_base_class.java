@@ -24,6 +24,7 @@ public class FTC_base_class extends LinearOpMode
     Motor leftMotor;
     Motor rightMotor;
     MotorEx flywheel;
+    MotorEx intake;
     ServoEx gate;
     DriveTrain driveTrain;
 
@@ -38,6 +39,10 @@ public class FTC_base_class extends LinearOpMode
         rightMotor = new Motor(hardwareMap,"rightMotor");
         imu = new GyroEx(hardwareMap,"IMU",RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
+
+        flywheel = new MotorEx(hardwareMap,"flywheel");
+        intake = new MotorEx(hardwareMap,"intake");
+        gate = new ServoEx(hardwareMap,"gate",0,1);
 
         driveTrain = new DifferentialDrive(leftMotor,rightMotor);
 
