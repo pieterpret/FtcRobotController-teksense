@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 //main api classes
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.teamcode.components.MotorEx;
 import org.firstinspires.ftc.teamcode.components.ServoEx;
 
 @TeleOp(name = "tele op test")
+@Disabled
 public class FTC_base_class extends LinearOpMode
 {
     private GamePadEx driver1;
