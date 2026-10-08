@@ -52,14 +52,14 @@ public class Biobuzz_robot extends LinearOpMode {
             }
 
             if(driver2.rightBumper){
-                flywheel.setVelocity(1200);
+                flywheel.setVelocity(1300);
             }
             else
             {
                 flywheel.setVelocity(0);
             }
 
-            if(flywheel.getVelocity() >= 1000)
+            if(flywheel.getVelocity() >= 1200)
             {
                 feeder.setPosition(0);
             }
