@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.teamcode.components.MotorEx;
 import org.firstinspires.ftc.teamcode.components.ServoEx;
 
 @Autonomous(name = "red 1")
+@Disabled
 public class Auto_1 extends LinearOpMode {
     //definitions for motors and servos
     Motor leftMotor;

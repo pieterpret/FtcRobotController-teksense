@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.components.MotorEx;
 import org.firstinspires.ftc.teamcode.components.ServoEx;
 
 @TeleOp(name = "tele op test")
-@Disabled
+
 public class FTC_base_class extends LinearOpMode
 {
     private GamePadEx driver1;
