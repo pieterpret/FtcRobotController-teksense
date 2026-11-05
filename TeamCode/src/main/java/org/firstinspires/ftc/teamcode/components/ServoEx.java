@@ -9,13 +9,26 @@ public class ServoEx {
     private double closePos;
     private boolean isOpen;
 
-    // Constructor-style setup
-    public ServoEx(HardwareMap hw, String name, double openPos, double closePos) {
+    public ServoEx(
+            HardwareMap hw,
+            String name,
+            double openPos,
+            double closePos,
+            boolean reversed
+    ) {
         servo = hw.get(Servo.class, name);
+
+        servo.setDirection(
+                reversed
+                        ? Servo.Direction.REVERSE
+                        : Servo.Direction.FORWARD
+        );
+
         this.openPos = openPos;
         this.closePos = closePos;
         this.isOpen = false;
-        servo.setPosition(closePos); // default closed
+
+        servo.setPosition(closePos);
     }
 
     // Basic control

@@ -42,7 +42,7 @@ public class Auto_1 extends LinearOpMode {
         rightMotor = new Motor(hardwareMap, "rightDrive");
         intake = new MotorEx(hardwareMap, "intakeMotor");
         flywheel = new MotorEx(hardwareMap, "flywheel");
-        crServo = new ServoEx(hardwareMap, "crServo", 0, 1);
+        crServo = new ServoEx(hardwareMap, "crServo", 0, 1, false);
         driveTrain = new DifferentialDrive(leftMotor,rightMotor);
 
         leftMotor.setReversed(false);

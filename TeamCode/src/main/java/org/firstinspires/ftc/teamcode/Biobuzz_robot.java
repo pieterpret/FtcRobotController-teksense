@@ -82,7 +82,7 @@ public class Biobuzz_robot extends LinearOpMode {
         rightMotor = new Motor(hardwareMap,"rightDrive");
         flywheel = new MotorEx(hardwareMap,"flywheel");
         intake = new MotorEx(hardwareMap,"intakeMotor");
-        feeder = new ServoEx(hardwareMap,"crServo",-1,1);
+        feeder = new ServoEx(hardwareMap,"crServo",-1,1,false);
 
         leftMotor.setReversed(true);
         rightMotor.setReversed(false);

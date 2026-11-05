@@ -42,7 +42,7 @@ public class FTC_base_class extends LinearOpMode
 
         flywheel = new MotorEx(hardwareMap,"flywheel");
         intake = new MotorEx(hardwareMap,"intake");
-        gate = new ServoEx(hardwareMap,"gate",0,1);
+        gate = new ServoEx(hardwareMap,"gate",0,1,false);
 
         driveTrain = new DifferentialDrive(leftMotor,rightMotor);
 
