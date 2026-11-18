@@ -26,6 +26,8 @@ public class Biobuzz_robot extends LinearOpMode {
     MotorEx intake;
     ServoEx feeder;
     DriveTrain driveTrain;
+    ServoEx pollen1;
+    ServoEx pollen2;
 
     // PIDF constants for flywheel
     private static final double kP = 5.0;
@@ -69,6 +71,16 @@ public class Biobuzz_robot extends LinearOpMode {
             {
                 feeder.setPosition(0.5);
             }
+
+            if(driver2.a)
+            {
+                pollen1.open();
+                pollen2.open();
+            }
+            else {
+                pollen1.close();
+                pollen2.close();
+            }
             telemetry.addData("flywheel:",flywheel.getVelocity());
             telemetry.update();
         }
@@ -82,11 +94,17 @@ public class Biobuzz_robot extends LinearOpMode {
         rightMotor = new Motor(hardwareMap,"rightDrive");
         flywheel = new MotorEx(hardwareMap,"flywheel");
         intake = new MotorEx(hardwareMap,"intakeMotor");
-        feeder = new ServoEx(hardwareMap,"crServo",-1,1,false);
+        feeder = new ServoEx(hardwareMap,"crServo",0,1,false);
+        pollen1 = new ServoEx(hardwareMap,"pollenServo1",0,1,true);
+        pollen2 = new ServoEx(hardwareMap,"pollenservo2",0,1,false);
+
 
         leftMotor.setReversed(true);
         rightMotor.setReversed(false);
         feeder.setPosition(0.5);
+        pollen1.setPosition(0.5);
+        pollen2.setPosition(0.5);
+
 
         driveTrain = new DifferentialDrive(leftMotor,rightMotor);
         // Flywheel PIDF setup

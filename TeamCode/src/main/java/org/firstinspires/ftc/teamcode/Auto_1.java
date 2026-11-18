@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.components.MotorEx;
 import org.firstinspires.ftc.teamcode.components.ServoEx;
 
 @Autonomous(name = "red 1")
-@Disabled
+
 public class Auto_1 extends LinearOpMode {
     //definitions for motors and servos
     Motor leftMotor;
