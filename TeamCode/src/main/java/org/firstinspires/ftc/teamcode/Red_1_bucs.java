@@ -22,17 +22,6 @@ public class Red_1_bucs extends LinearOpMode {
     ServoEx flower;
     DigitalChannel touchSensor;
 
-    private enum ThrowState {
-        IDLE,
-        SEEKING_SENSOR,
-        OVERSHOOT
-    }
-
-    private Red_1_bucs.ThrowState throwState = Red_1_bucs.ThrowState.IDLE;
-
-    private boolean previousA = false;
-    private int sensorTriggerTicks = 0;
-
     private final ElapsedTime throwTimer = new ElapsedTime();
 
     private static final double THROW_POWER = 1.0;
@@ -51,6 +40,7 @@ public class Red_1_bucs extends LinearOpMode {
         intake = new Motor(hardwareMap,"intake");
         flower = new ServoEx(hardwareMap,"flower",0,1,false);
         touchSensor = hardwareMap.get(DigitalChannel.class,"limit");
+        touchSensor.setMode(DigitalChannel.Mode.INPUT);
 
         leftFront.setReversed(true);
         rightFront.setReversed(false);
@@ -63,27 +53,102 @@ public class Red_1_bucs extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         initDevices();
+        telemetry.addLine("Ready");
+        telemetry.update();
+
         waitForStart();
-        if(opModeIsActive())
-        {
-            for(int i = 0; i<4;i++) {
-                throwArm.setPower(0.6);
-                sleep(300);
-                while (touchSensor.getState()) {
-                    throwArm.setPower(1);
-                    telemetry.addData("limit",touchSensor.getState());
-                    telemetry.update();
-                }
-                throwArm.setPower(0);
-                sleep(400);
-                while (!touchSensor.getState()) {
-                    throwArm.setPower(0.2);
-                    telemetry.addData("limit",touchSensor.getState());
-                    telemetry.update();
-                }
-                throwArm.setPower(0);
-                sleep(300);
-            }
+
+        if (isStopRequested()) {
+            return;
         }
+
+        for (int shot = 0; shot < 4 && opModeIsActive(); shot++) {
+            boolean completed = runThrowCycle();
+
+            if (!completed) {
+                telemetry.addData("Throw failed", shot + 1);
+                telemetry.update();
+                break;
+            }
+
+            sleep(400);
+        }
+
+        throwArm.setPower(0);
+    }
+
+    private boolean runThrowCycle() {
+        throwTimer.reset();
+
+        /*
+         * Stage 1: Move until the magnet enters the sensor.
+         *
+         * Assumes:
+         * true  = magnet not detected
+         * false = magnet detected
+         */
+        while (opModeIsActive()
+                && touchSensor.getState()
+                && throwTimer.seconds() < THROW_TIMEOUT) {
+
+            throwArm.setPower(THROW_POWER);
+
+            telemetry.addData("Throw stage", "Seeking sensor");
+            telemetry.addData("Sensor", touchSensor.getState());
+            telemetry.addData("Arm ticks", throwArm.getDistance());
+            telemetry.update();
+
+            idle();
+        }
+
+        if (!opModeIsActive() || throwTimer.seconds() >= THROW_TIMEOUT) {
+            throwArm.setPower(0);
+            return false;
+        }
+
+        /*
+         * Stage 2: Continue slowly until the magnet has completely
+         * passed through the sensor's detection area.
+         */
+        while (opModeIsActive()
+                && !touchSensor.getState()
+                && throwTimer.seconds() < THROW_TIMEOUT) {
+
+            throwArm.setPower(OVERSHOOT_POWER);
+            idle();
+        }
+
+        if (!opModeIsActive() || throwTimer.seconds() >= THROW_TIMEOUT) {
+            throwArm.setPower(0);
+            return false;
+        }
+
+        /*
+         * Stage 3: Move a fixed number of encoder ticks beyond the
+         * trailing edge of the sensor.
+         */
+        int clearPosition = throwArm.getDistance();
+
+        while (opModeIsActive()
+                && Math.abs(throwArm.getDistance() - clearPosition)
+                < OVERSHOOT_TICKS
+                && throwTimer.seconds() < THROW_TIMEOUT) {
+
+            throwArm.setPower(OVERSHOOT_POWER);
+
+            telemetry.addData("Throw stage", "Overshooting");
+            telemetry.addData(
+                    "Ticks past sensor",
+                    Math.abs(throwArm.getDistance() - clearPosition)
+            );
+            telemetry.update();
+
+            idle();
+        }
+
+        throwArm.setPower(0);
+
+        return opModeIsActive()
+                && throwTimer.seconds() < THROW_TIMEOUT;
     }
 }
