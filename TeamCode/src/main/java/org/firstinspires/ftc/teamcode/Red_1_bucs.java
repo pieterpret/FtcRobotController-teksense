@@ -24,7 +24,7 @@ public class Red_1_bucs extends LinearOpMode {
 
     private final ElapsedTime throwTimer = new ElapsedTime();
 
-    private static final double THROW_POWER = 1.0;
+    private static final double THROW_POWER = 0.9;
     private static final double OVERSHOOT_POWER = 0.25;
     private static final int OVERSHOOT_TICKS = 10;
     private static final double THROW_TIMEOUT = 3.0;
@@ -75,6 +75,13 @@ public class Red_1_bucs extends LinearOpMode {
         }
 
         throwArm.setPower(0);
+        driveTrain.drive(0,-0.5,0,0);
+        sleep(400);
+        driveTrain.drive(0,0,-0.5,0);
+        sleep(400);
+        driveTrain.drive(0,-0.5,0,0);
+        sleep(3200);
+        driveTrain.drive(0,0,0,0);
     }
 
     private boolean runThrowCycle() {
