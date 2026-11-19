@@ -143,7 +143,7 @@ public class mecanum_test extends LinearOpMode {
         leftFront.setReversed(true);
         rightFront.setReversed(false);
         leftBack.setReversed(true);
-        rightBack.setReversed(false);
+        rightBack.setReversed(true);
 
         throwArm.setBrake(true);
     }
